@@ -1,0 +1,3 @@
+Para usar EnsamblePC se debe instalar una versión anterior de Adobe Flash Player (por ejemplo, la 18, https://helpx.adobe.com/es/flash-player/kb/archived-flash-player-versions.html).
+
+Según el navegador que se utilice, puede ser necesario instalar también una versión anterior (con otros navegadores puede que no sea necesario). Por ejemplo, si se usa Mozilla Firefox, se puede instalar la versión 49.0, https://ftp.mozilla.org/pub/firefox/releases/49.0/win32/es-ES/ y configurarlo para que no se actualice.

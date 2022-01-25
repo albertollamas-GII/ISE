@@ -1,0 +1,83 @@
+1.- Notación: En este ejercicio "Tr." indica "Transparencia" (o diapositiva).
+1)      V. Tr. 20 tema 1.
+2)      V. Tr. 27 tema 1.
+3)      F. Tr. 16 tema 2. Es de Intel y no de IBM.
+4)      F. Tr. 18 tema 2. Son cores x86.
+5)      V. Tr. 22 tema 2.
+6)      V. Tr. 24 tema 2.
+7)      F. Tr. 38 tema 2. Las latencias suelen ser muy ALTAS.
+8)      F. Tr. 40 y Tr. 43 tema 2. AHCI es para discos duros a través de SATA. NVMe sí que lo sería.
+9)      V. Tr. 41 del tema 2.
+10)     V. Tr. 46 y 47 del tema 2.
+11)     V. Tr. 50 del tema 2 (SPEAKER es el altavoz del chasis).
+12)     V. Tr. 55 del tema 2.
+13)     V. Tr. 24 del tema 1 o Tr. 59 del tema 2.
+14)     F. Tr. 52-54 del tema 2.
+15)     V. Tr. 39 del tema 5.
+16)     F. Tr. 39 del tema 5. El servidor se satura cuando lo haga el cuello de botella, es decir, cuando alguna de las utilizaciones de los componentes del servidor sea igual a 1 y no cuando la suma de todas las utilizaciones sea mayor que 1. 
+17)     F. Tr. 34 del tema 5.
+18)     F. Tr. 26 del tema 5. Di=Vi*Si. Es posible que el uso de un dispositivo por parte del servidor sea tan infrecuente que su razón media de visita sea menor que 1. Por ejemplo, si casi todas las peticiones de un servidor web usan la caché y no el disco, es posible que ese disco tenga una razón media de visita menor que 1.
+19)     F. Tr. 24 del tema 4. Obtendremos esa información pero no de forma interactiva sino la YA RECOPILADA a lo largo del día de hoy.
+20)     F. Tr. 25 del tema 5. No es un valor medio sino el total de trabajos completados por el servidor durante ese periodo.
+
+2.- Una posible manera de encontrar la solución:
+1,25=S=vm/vo=To/Tm=(0,35*Tm+f*To)/Tm=(0,35*Tm+f*S*Tm)/Tm=0,35+f*S-->
+f=(S-0,35)/S=1-0,35/1,25=0,72
+Otra forma: Nos fijamos en los tiempos consumidos por la parte no mejorada:
+(1-f)*To=0,35*Tm--> (1-f)*S=0,35 --> 1-f=0,35/S=0,35/1,25=0,28 --> f=1-0,28=0,72
+
+3.- En el enunciado nos dan:
+T=24h=86400s
+A0=15000 tr.
+Ucpu=0,64.
+Ddd=1,5s. No entender que ese dato se refiere a Ddd se considera un error muy grave en este ejercicio. Más grave aún si se interpreta que es Sdd ya que entonces Sdd sería mayor que Rdd y eso implicaría que Wdd sería negativo (ya que Rdd=Wdd+Sdd).
+Qdd=0,09 tr.
+Rdd=0,15s.
+a) Comprobación de que no está saturado:
+Ucpu<1, por lo tanto la CPU no está saturada.
+Tanto Qdd como Rdd son finitos. Si el disco estuviera saturado tendrían valores infinitos. Por lo tanto, tampoco el disco está saturado. Como no hay más dispositivos en nuestro modelo, el servidor no está saturado.
+Otra forma de comprobar que el servidor no está saturado consistiría en suponer que no lo está y verificar que las utilizaciones son < 1 o que lambda0<X0max, como hacemos a continuación:
+Si no saturado X0=lambda0=A0/T=0,174 tr/s.
+(Relación Utilización-Demanda): Udd=X0*Ddd=0,26 (26%) --> efectivamente, confirmamos que el servidor no está saturado porque las utilizaciones de todos los dispositivos son < 1.
+El cuello de botella es la cpu por tener la utilización mayor.
+(Relación Utilización-Demanda) Dcpu=Ucpu/X0=3,69 s.
+X0max=1/Db=1/Dcpu=0,27 tr/s.
+De nuevo, volvemos a confirmar que el servidor no está saturado ya que lambda0<X0max (0,174 tr/s < 0,27 tr/s).
+
+b) Nos piden Vdd=Cdd/C0=Xdd/X0 (ley del flujo forzado)
+(definición de N): Ndd=Qdd+Udd=0,09+0,26=0,35 tr.
+(ley de Little aplicada a una estación de servicio de un servidor en equilibrio de flujo) Xdd=Ndd/Rdd =2,34 tr/s.
+Por tanto, Vdd=Xdd/X0=13,46.
+
+4.- 
+Pr.      Ref (s)   A (s)      B (s)      Ref/A    Ref/B
+P1      1200      300      250        4,00      4,80
+P2      2400      900      1200      2,67      2,00
+P3      3600      700      1100      5,14      3,27
+P4      1200      600      1000      2,00      1,20
+SPEC_A=(4*2,67*5,14*2)^(1/4) = 3,24
+SPEC_B=(4,8*2*3,27*1,2)^(1/4) = 2,48
+El índice SPEC es un índice que cuanto mayor sea mejor (ya que es la media geométrica de las ganancias en velocidad con respecto a una máquina de referencia). Así que, según ese índice, la máquina A es más rápida que la B (su índice SPEC el mayor).
+
+b) Ver, por ejemplo, la última transparencia del tema 4. La hipótesis de partida (H0) es que los rendimientos de ambas máquinas son equivalentes.
+Si definimos d=A(s)-B(s), tendremos que:
+Valor medio de d: -262,5s.
+Desviación típica muestral: 213,6s.
+n=4.
+texp=-2,46.
+Para rechazar H0 para un nivel de confianza del 90% (alfa=0,1), texp debería estar fuera del rango [-2,35, 2,35] (ya que alfa/2 = 0,05 y "n-1" = 3). Efectivamente, está fuera de dicho rango por lo que rechazamos que los rendimientos sean equivalentes para el 90% de nivel de confianza.
+
+5.- Usando la definición de MIPS (transparencia 8 del tema 4), obtenemos que cada activación del monitor tarda en ejecutarse:
+Tejec=NI/(MIPS*10^6)=0,0005s.
+a)
+Usando la definición de sobrecarga y aplicándola a una CPU (ver transparencia 13 del tema 3):
+0,1 <= (0,0005s/Periodo_de_muestreo)*100. De donde Periodo_de_muestreo>=0,5s. Por tanto, si el periodo de muestreo es, como mínimo, de 0,5s, la frecuencia máxima de muestreo será su inversa = 2Hz, es decir, como mucho se puede activar el monitor 2 veces por segundo.
+b) Si se activa una vez cada 6 minutos, se activará 10 veces por hora y 10*24=240 veces al día. Como cada activación almacena 1KiB de información en el fichero saDD del día DD correspondiente, dicho fichero como mucho alcanzará los 240KiB de información.
+
+6.- 
+a) Transparencia 57 del tema 2. Es una unidad de medida utilizada para estandarizar la distancia entre estantes en un armario (rack) de computadores. De esa forma, los chasis de un computador se suelen diseñar para tener un número entero de "rack units" y así facilitar que puedan acoplarse a dichos armarios.
+b) Transparencia 15 del tema 2. Porque al aumentar la frecuencia aumenta el calor que hay que disipar por área del chip y ya nos encontramos demasiado cerca de lo que se conoce como la "barrera térmica".
+c) Transparencia 25 del tema 2.
+d) Transparencia 43 del tema 5 para redes abiertas y transparencia 47 del tema 5 para redes cerradas (ambas son idénticas).
+e) Transparencia 46 del tema 5.
+f) Transparencia 20 del tema 6 particularizándola al caso concreto que se indica en el enunciado.
